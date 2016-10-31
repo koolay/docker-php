@@ -8,7 +8,7 @@ php fpm
 
 docker run --name fpm -d --restart=always -p 9000 \
    -v <myproject>:/home/app/webapp \
-   daocloud.io/koolay/php-fpm:5.6
+   daocloud.io/koolay/fpm:latest
 
 ```
 
