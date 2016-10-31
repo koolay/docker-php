@@ -1,0 +1,34 @@
+server {
+	listen   80;
+	server_name api.myapp-dev.com;
+	proxy_set_header Host $host;
+	proxy_set_header X-Real-IP $remote_addr;
+    charset utf-8;
+    root /home/app/webapp;
+    index index.html index.htm index.php;
+	location / {
+		proxy_redirect  off;
+
+        if ($request_method = 'OPTIONS') {
+
+		add_header Access-Control-Allow-Origin $allow_origin;
+        add_header Access-Control-Allow-Credentials 'true';
+        add_header Access-Control-Max-Age $cors_max_age;
+        add_header Access-Control-Allow-Methods $cors_allow_methods;
+        add_header Access-Control-Allow-Headers $cors_allow_headers;
+        return 204;
+
+        }
+
+	}
+
+    location ~ \.php  {
+        include fastcgi_params;
+        fastcgi_pass  fpm:9000;
+        fastcgi_split_path_info ^(.+\.php)(.*)$;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+
+    }
+}
