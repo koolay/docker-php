@@ -15,7 +15,7 @@ RUN apt-get update \
     && apt-get install -y --allow-unauthenticated --no-install-recommends \
     php5.6-dev php5.6-fpm php5.6-cli php5.6-memcached \
     php5.6-mysql php5.6-gd php5.6-json php5.6-ldap \
-    php5.6-curl php5.6-intl php5.6-mcrypt php5.6-imagick php5.6-imap ca-certificates php5.6-xdebug php5.6-mbstring
+    php5.6-curl php5.6-intl php5.6-mcrypt php5.6-imagick php5.6-imap ca-certificates php5.6-xdebug php5.6-mbstring php5.6-bcmath
 
 #RUN php5enmod mcrypt && php5enmod memcached
 
