@@ -17,6 +17,7 @@ RUN apt-get update \
     php5.6-mysql php5.6-gd php5.6-json php5.6-ldap \
     php5.6-curl php5.6-intl php5.6-mcrypt php5.6-imagick php5.6-imap \
     ca-certificates php5.6-xdebug php5.6-mbstring php5.6-bcmath php5.6-xml php-pear \
+    pkg-config libssl-dev \
     && pecl install mongodb \
     && echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
