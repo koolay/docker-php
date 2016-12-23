@@ -18,6 +18,18 @@ RUN apt-get update \
     php5.6-curl php5.6-intl php5.6-mcrypt php5.6-imagick php5.6-imap ca-certificates php5.6-xdebug php5.6-mbstring php5.6-bcmath
 
 #RUN php5enmod mcrypt && php5enmod memcached
+RUN MONGODB_VERSION="1.2.2" \
+  && MONGODB_FILENAME="mongodb-${MONGODB_VERSION}" \
+  && MONGODB_SOURCE="https://github.com/mongodb/mongo-php-driver/releases/download/${MONGODB_VERSION}/${MONGODB_FILENAME}.tgz" \
+  && curl -fSL --connect-timeout 30 ${MONGODB_SOURCE} | tar xz -C /tmp \
+  && cd /tmp/${MONGODB_FILENAME} \
+  && phpize \
+  && ./configure \
+    --with-libbson=system \
+    --with-libmongoc=system \
+    STD_CFLAGS="-march=native" \
+  && make \
+  && make install
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
