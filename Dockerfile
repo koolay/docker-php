@@ -30,7 +30,7 @@ RUN pecl download redis && tar -xf redis* \
 
 RUN cd /tmp && curl -s -L -o ssdb.tar.gz  https://github.com/jonnywang/phpssdb/archive/v0.5.2.tar.gz.tar.gz  \
     && tar -zxf ssdb.tar.gz \
-    cd phpssdb-0.5.2.tar.gz \
+    && cd phpssdb-0.5.2.tar.gz \
     && phpize \
     && ./configure --enable-ssdb-igbinary \
     && make \
