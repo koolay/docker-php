@@ -26,6 +26,7 @@ RUN pecl download redis && tar -xf redis* \
     && make \
     && make install \
     && echo "extension=redis.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` \
+    && echo "extension=redis.so" >> /etc/php/5.6/fpm/php.ini \
     && rm -rf redis*
 
 #RUN php5enmod mcrypt && php5enmod memcached
