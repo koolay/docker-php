@@ -17,7 +17,7 @@ RUN apt-get update \
     php5.6-mysql php5.6-gd php5.6-json php5.6-ldap \
     php5.6-curl php5.6-intl php5.6-mcrypt php5.6-imagick php5.6-imap \
     ca-certificates php5.6-xdebug php5.6-mbstring php5.6-bcmath php5.6-xml php-pear \
-    pkg-config libssl-dev
+    pkg-config libssl-dev php5.6-igbinary
 
 RUN pecl download redis && tar -xf redis* \
     && cd redis* \
