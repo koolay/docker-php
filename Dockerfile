@@ -19,8 +19,14 @@ RUN apt-get update \
     ca-certificates php5.6-xdebug php5.6-mbstring php5.6-bcmath php5.6-xml php-pear \
     pkg-config libssl-dev
 
-RUN pecl download redis && tar -xf redis* && cd redis* && phpize && ./configure --enable-redis-igbinary && make && make install \
-    && echo "extension=redis.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+RUN pecl download redis && tar -xf redis* \
+    && cd redis* \
+    && phpize \
+    && ./configure --enable-redis-igbinary \
+    && make \
+    && make install \
+    && echo "extension=redis.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` \
+    && rm -rf redis*
 
 #RUN php5enmod mcrypt && php5enmod memcached
 
