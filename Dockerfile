@@ -25,9 +25,21 @@ RUN pecl download redis && tar -xf redis* \
     && ./configure --enable-redis-igbinary \
     && make \
     && make install \
-    && echo "extension=redis.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` \
-    && echo "extension=redis.so" >> /etc/php/5.6/fpm/php.ini \
+    && echo "extension=redis.so" > /etc/php/5.6/fpm/conf.d/redis.ini \
     && rm -rf redis*
+
+RUN cd /tmp && curl -s -L -o ssdb.tar.gz  https://github.com/jonnywang/phpssdb/archive/v0.5.2.tar.gz.tar.gz  \
+    && tar -zxf ssdb.tar.gz \
+    cd phpssdb-0.5.2.tar.gz \
+    && phpize \
+    && ./configure --enable-ssdb-igbinary \
+    && make \
+    && make install \
+    && echo "extension=ssdb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` \
+    && echo "extension=ssdb.so" > /etc/php/5.6/fpm/conf.d/ssdb.ini \
+    && rm -rf /tmp/ssdb.tar.gz && rm -rdf /tmp/phpssdb-0.5.2.tar.gz
+
+RUN pecl install channel://pecl.php.net/xhprof-0.9.4 && echo "extension=xhprof.so" > /etc/php/5.6/fpm/conf.d/xhprof.ini
 
 #RUN php5enmod mcrypt && php5enmod memcached
 
