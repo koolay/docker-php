@@ -44,6 +44,7 @@ RUN pecl install channel://pecl.php.net/xhprof-0.9.4 && echo "extension=xhprof.s
 #RUN php5enmod mcrypt && php5enmod memcached
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer global require "squizlabs/php_codesniffer=*"
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /wheels/*
 RUN mkdir -p /etc/service/fpm
