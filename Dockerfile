@@ -47,6 +47,12 @@ RUN pecl install channel://pecl.php.net/xhprof-0.9.4 && echo "extension=xhprof.s
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer global require "squizlabs/php_codesniffer=*"
 
+# xhgui
+RUN git clone https://github.com/perftools/xhgui.git /home/app/xhgui \
+    && cd /home/app/xhgui \
+    && composer install \
+    && chown -R app:app /home/app/xhgui
+
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /wheels/*
 RUN mkdir -p /etc/service/fpm
 COPY service.sh /etc/service/fpm/run
@@ -61,6 +67,7 @@ RUN chmod +x /etc/service/fpm/run \
 COPY conf/php-fpm.conf /etc/php/5.6/fpm/php-fpm.conf
 COPY conf/php.ini /etc/php/5.6/fpm/php.ini
 COPY conf/pool.d/www.conf /etc/php/5.6/fpm/pool.d/www.conf
+COPY ./xhgui.config.php /home/app/xhgui/config/config.php
 
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone

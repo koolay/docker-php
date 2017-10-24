@@ -40,4 +40,12 @@ map your config files:
 https://github.com/docker-library/php/blob/005bb88143b7c54a4f86818adca6e3214f406128/5.6/fpm/Dockerfile
 
 
+## xhprof + xhgui
 
+**环境变量:** 
+
+`XHGUI_MODE`
+
+`XHGUI_MONGODB_URI`
+
+`XHGUI_RATE`
