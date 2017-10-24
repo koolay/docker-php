@@ -50,7 +50,7 @@ RUN composer global require "squizlabs/php_codesniffer=*"
 # xhgui
 RUN git clone https://github.com/perftools/xhgui.git /home/app/xhgui \
     && cd /home/app/xhgui \
-    && composer install \
+    && su app composer install \
     && chown -R app:app /home/app/xhgui
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /wheels/*
