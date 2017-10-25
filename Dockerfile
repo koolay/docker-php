@@ -40,7 +40,8 @@ RUN cd /tmp && curl -s -L -o ssdb.tar.gz  https://github.com/jonnywang/phpssdb/a
     && echo "extension=ssdb.so" > /etc/php/5.6/fpm/conf.d/ssdb.ini \
     && rm -rf /tmp/ssdb.tar.gz && rm -rdf /tmp/phpssdb-0.5.2.tar.gz
 
-RUN pecl install channel://pecl.php.net/xhprof-0.9.4 && echo "extension=xhprof.so" > /etc/php/5.6/fpm/conf.d/xhprof.ini
+RUN pecl install channel://pecl.php.net/xhprof-0.9.4 && echo "extension=xhprof.so" > /etc/php/5.6/fpm/conf.d/xhprof.ini \
+    && pecl install mongodb && echo "extension=mongodb.so" > /etc/php/5.6/fpm/conf.d/mongodb.ini
 
 #RUN php5enmod mcrypt && php5enmod memcached
 
@@ -50,7 +51,7 @@ RUN composer global require "squizlabs/php_codesniffer=*"
 # xhgui
 RUN git clone https://github.com/perftools/xhgui.git /home/app/xhgui \
     && cd /home/app/xhgui \
-    && composer install --no-plugins --no-scripts \
+    && composer install --no-plugins --no-scripts --no-dev \
     && chown -R app:app /home/app/xhgui
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /wheels/*
