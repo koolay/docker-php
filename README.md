@@ -1,23 +1,33 @@
 php fpm
 ------
 
+xhgui + xhprof
+
 ## RUN
 
 - fpm
-```
+
+```bash
 
 docker run --name fpm -d --restart=always -p 9000 \
    -v <myproject>:/home/app/webapp \
+   -e XHGUI_MONGODB_URI=172.17.0.1:27017 \
+   -e XHGUI_RATE=50 \
    daocloud.io/koolay/fpm:latest
 
+
+docker run --name fpm-xhgui -d --restart=always -p 9000 \
+   -v <xhgui root>:/home/app/xhgui
+   daocloud.io/koolay/fpm:latest
 ```
 
 - nginx
 
 ```
-docker run --name nginx -d --restart=always -p 80:80 --link fpm \
+docker run --name nginx -d --restart=always -p 80:80 --link fpm --link fmp-xhgui \
     -v nginx/nginx.conf:/etc/nginx/nginx.conf \
     -v nginx/webapp.conf:/etc/nginx/conf.d/default.conf \
+    -v nginx/xhgui.conf:/etc/nginx/conf.d/xhgui.conf \
     -v <myproject>:/home/app/webapp \
      daocloud.io/library/nginx:1.10.0-alpine
 

@@ -1,0 +1,19 @@
+server {
+    listen      80 ;
+    server_name xhprof.myapp.com;
+    root    /home/app/xhgui/webroot;
+    index index.php;
+
+
+    location / {
+       try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~  \.php$ {
+        fastcgi_pass  fpm-xhgui:9000;
+        fastcgi_connect_timeout 1000;
+        fastcgi_index  index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+}

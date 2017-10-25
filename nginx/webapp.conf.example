@@ -31,6 +31,6 @@ server {
         fastcgi_param PATH_INFO $fastcgi_path_info;
         fastcgi_param SUBDOMAIN $subdomain;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-
+        fastcgi_param PHP_VALUE "auto_prepend_file=/home/app/xhgui/external/header.php";
     }
 }
