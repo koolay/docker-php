@@ -41,7 +41,7 @@ RUN cd /tmp && curl -s -L -o ssdb.tar.gz  https://github.com/jonnywang/phpssdb/a
     && rm -rf /tmp/ssdb.tar.gz && rm -rdf /tmp/phpssdb-0.5.2.tar.gz
 
 RUN pecl install channel://pecl.php.net/xhprof-0.9.4 && echo "extension=xhprof.so" > /etc/php/5.6/fpm/conf.d/xhprof.ini \
-    && pecl install mongodb && echo "extension=mongo.so" > /etc/php/5.6/fpm/conf.d/mongodb.ini
+    && pecl install mongo && echo "extension=mongo.so" > /etc/php/5.6/fpm/conf.d/mongo.ini
 
 #RUN php5enmod mcrypt && php5enmod memcached
 
