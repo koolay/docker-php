@@ -40,8 +40,22 @@ RUN cd /tmp && curl -s -L -o ssdb.tar.gz  https://github.com/jonnywang/phpssdb/a
     && echo "extension=ssdb.so" > /etc/php/5.6/fpm/conf.d/ssdb.ini \
     && rm -rf /tmp/ssdb.tar.gz && rm -rdf /tmp/phpssdb-0.5.2.tar.gz
 
-RUN pecl install channel://pecl.php.net/xhprof-0.9.4 && echo "extension=xhprof.so" > /etc/php/5.6/fpm/conf.d/xhprof.ini \
-    && pecl install mongo && echo "extension=mongo.so" > /etc/php/5.6/fpm/conf.d/mongo.ini
+RUN git clone https://github.com/tideways/php-profiler-extension.git /tmp/php-profiler-extension \
+    && cd /tmp/php-profiler-extension \
+    && phpize \
+    && ./configure \
+    && make \
+    && make install \
+    && pecl install mongo \
+    && echo "extension=tideways.so" > /etc/php/5.6/fpm/conf.d/tideways.ini \
+    && echo "tideways.auto_prepend_library=0" >> /etc/php/5.6/fpm/conf.d/tideways.ini \
+    && echo "extension=mongo.so" > /etc/php/5.6/fpm/conf.d/mongo.ini
+
+#RUN pecl install channel://pecl.php.net/xhprof-0.9.4 && echo "extension=xhprof.so" > /etc/php/5.6/fpm/conf.d/xhprof.ini \
+    #&& pecl install mongo && echo "extension=mongo.so" > /etc/php/5.6/fpm/conf.d/mongo.ini
+
+#RUN pecl install channel://pecl.php.net/xhprof-0.9.4 && echo "extension=xhprof.so" > /etc/php/5.6/fpm/conf.d/xhprof.ini \
+    #&& pecl install mongo && echo "extension=mongo.so" > /etc/php/5.6/fpm/conf.d/mongo.ini
 
 #RUN php5enmod mcrypt && php5enmod memcached
 
